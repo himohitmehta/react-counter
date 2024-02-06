@@ -1,34 +1,15 @@
 "use client";
+import HistoryTable from "@/components/counter/history-table";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { HistoryDataType } from "@/lib/types";
+import { formatDate } from "@/lib/utils";
 import Image from "next/image";
 import { useState } from "react";
 
-type IHistoryProps = {
-	id: number;
-	action: string;
-	value: number;
-	time: Date;
-	total: number;
-};
-
-const formatDate = (date: Date) => {
-	const newDate = new Date(date);
-	const val = new Intl.DateTimeFormat("en", {
-		year: "numeric",
-		month: "2-digit",
-		day: "2-digit",
-		hour: "2-digit",
-		minute: "2-digit",
-		second: "2-digit",
-		hour12: false,
-	}).format(newDate);
-	return val;
-};
-
 export default function Home() {
 	const [count, setCount] = useState(0);
-	const [history, setHistory] = useState<IHistoryProps[]>([]);
+	const [history, setHistory] = useState<HistoryDataType[]>([]);
 	const [inputValue, setInputValue] = useState<Number | null>(null);
 
 	const handleClickButton = (action: "add" | "subtract") => {
@@ -53,7 +34,8 @@ export default function Home() {
 
 	console.log({ history });
 	return (
-		<div className="max-w-sm mx-auto">
+		<div className="max-w-lg mx-auto">
+			<h2 className="text-3xl font-bold my-4"> Current Count: {count}</h2>
 			<div className="max-w-sm mt-8">
 				<h3 className="text-2xl font-bold">Add Value</h3>
 				<Input
@@ -73,21 +55,9 @@ export default function Home() {
 					</Button>
 				</div>
 			</div>
-			<h2 className="text-3xl font-bold my-4"> Current Count: {count}</h2>
-			<h3 className="text-xl font-medium mt-4">History:</h3>
-			{history.length > 0 && (
-				<ul className="list-item">
-					{history
-						.sort((a, b) => (a.time < b.time ? 1 : -1))
-						.map((item, index) => (
-							<li key={index}>
-								{/* {console.log({ time: formatDate(item.time) })} */}
-								time:{formatDate(item.time)} {item.action} :{" "}
-								{item.value}, Total: {item.total}
-							</li>
-						))}
-				</ul>
-			)}{" "}
+			<h3 className="text-xl font-medium my-4">History:</h3>
+			<HistoryTable data={history} />
+
 			{history.length === 0 && (
 				<p className="text-sm mt-4">No history yet</p>
 			)}
