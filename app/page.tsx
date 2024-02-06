@@ -36,7 +36,7 @@ export default function Home() {
 		]);
 		setInputValue(0);
 	};
-	const formatDate = (date) => {
+	const formatDate = (date: Date) => {
 		const newDate = new Date(date);
 		const val = new Intl.DateTimeFormat("en", {
 			year: "numeric",
