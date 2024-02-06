@@ -12,6 +12,20 @@ type IHistoryProps = {
 	total: number;
 };
 
+const formatDate = (date: Date) => {
+	const newDate = new Date(date);
+	const val = new Intl.DateTimeFormat("en", {
+		year: "numeric",
+		month: "2-digit",
+		day: "2-digit",
+		hour: "2-digit",
+		minute: "2-digit",
+		second: "2-digit",
+		hour12: false,
+	}).format(newDate);
+	return val;
+};
+
 export default function Home() {
 	const [count, setCount] = useState(0);
 	const [history, setHistory] = useState<IHistoryProps[]>([]);
@@ -35,19 +49,6 @@ export default function Home() {
 			},
 		]);
 		setInputValue(0);
-	};
-	const formatDate = (date: Date) => {
-		const newDate = new Date(date);
-		const val = new Intl.DateTimeFormat("en", {
-			year: "numeric",
-			month: "2-digit",
-			day: "2-digit",
-			hour: "2-digit",
-			minute: "2-digit",
-			second: "2-digit",
-			hour12: false,
-		}).format(newDate);
-		return val;
 	};
 
 	console.log({ history });
