@@ -20,3 +20,8 @@ How it works:
 -   Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 Built Using NextJS, and TailwindCSS.
+
+
+# Issues
+- Not optimized for large data, the history table doesn't have pagination.
+- The history table state is not persistent, it resets on page refresh. Requires local storage to be added.
